@@ -24,9 +24,12 @@ public class Player : MonoBehaviour
     public void Throw()
     {
         GameObject Brick = Instantiate(BrickInstance);
-        Rigidbody rb = Brick.GetComponent<Rigidbody>();
+        Rigidbody2D rb = Brick.GetComponent<Rigidbody2D>();
         Vector2 throwDirection = (Vector2.up + Vector2.right).normalized;
         float throwStrength = 500.0f;
         rb.AddForce(throwDirection * throwStrength);
+        rb.angularVelocity = -300.0f;
     }
+
+
 }
