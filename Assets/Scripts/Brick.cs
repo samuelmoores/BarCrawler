@@ -15,10 +15,9 @@ public class Brick : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Bottle"))
         {
-            //speed up bottle
-            Bottle bottle = collision.gameObject.GetComponent<Bottle>();
-            bottle.IncreaseSpeed();
+            //Destroy bottle
             Destroy(collision.gameObject);
+            GameManager.instance.IncreaseBottleMoveSpeed();
 
             //spawn explosion
             GameObject explosion = Instantiate(explosionInstance, transform.position, Quaternion.identity);
@@ -29,7 +28,6 @@ public class Brick : MonoBehaviour
             rb.angularVelocity = 250.0f;
 
             //increase score
-            Debug.Log("GameManager singleton: " + GameManager.instance);
             GameManager.instance.IncreaseScore();
         }
     }

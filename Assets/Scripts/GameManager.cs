@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] TextMeshProUGUI scoreText;
     int score = 0;
+    float bottleMoveSpeed = 7.0f;
 
     private void Awake()
     {
@@ -25,6 +26,15 @@ public class GameManager : MonoBehaviour
     {
         score++;
         scoreText.text = score.ToString();
-        Debug.Log("Game Manager score: " + score);
+    }
+
+    public float GetBottleMoveSpeed()
+    {
+        return bottleMoveSpeed;
+    }
+
+    public void IncreaseBottleMoveSpeed()
+    {
+        bottleMoveSpeed++;
     }
 }

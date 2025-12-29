@@ -8,18 +8,27 @@ public class Player : MonoBehaviour
     InputAction throwAction;
     Vector2 mousePosition;
     float throwStengthModifier = 8.0f;
+    float attackCooldown = 2.0f;
+    float attackCooldownTimer;
 
     private void Start()
     {
         throwAction = InputSystem.actions.FindAction("Attack");
         mousePosition.x = 0.0f;
+        attackCooldownTimer = -1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (throwAction.WasPressedThisFrame())
+        if (attackCooldownTimer > 0.0f)
+            attackCooldownTimer -= Time.deltaTime;
+
+        Debug.Log(attackCooldownTimer);
+
+        if (throwAction.WasPressedThisFrame() && attackCooldownTimer < 0.0f)
         {
+            attackCooldownTimer = attackCooldown;
             mousePosition = Mouse.current.position.ReadValue().normalized;
             if(Mouse.current.position.ReadValue().x / 100.0f > 8.0f)
                 throwStengthModifier = Mouse.current.position.ReadValue().x / 100.0f;
@@ -31,6 +40,7 @@ public class Player : MonoBehaviour
     public void Throw()
     {
         GameObject Brick = Instantiate(BrickInstance);
+        Destroy(Brick, 10.0f);
         Rigidbody2D rb = Brick.GetComponent<Rigidbody2D>();
         float throwStrength = 50.0f * throwStengthModifier;
         Vector2 throwDirection = (Vector2.up + Vector2.right/2 + mousePosition).normalized;

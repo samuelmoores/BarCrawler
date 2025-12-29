@@ -10,8 +10,7 @@ public class BottleSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-            GameObject bottle = Instantiate(bottles[index++ % bottles.Length], transform.position, Quaternion.identity);
-
+        GameObject bottle = Instantiate(bottles[index++ % bottles.Length], transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
