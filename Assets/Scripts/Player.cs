@@ -24,8 +24,6 @@ public class Player : MonoBehaviour
         if (attackCooldownTimer > 0.0f)
             attackCooldownTimer -= Time.deltaTime;
 
-        Debug.Log(attackCooldownTimer);
-
         if (throwAction.WasPressedThisFrame() && attackCooldownTimer < 0.0f)
         {
             attackCooldownTimer = attackCooldown;

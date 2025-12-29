@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class Bottle : MonoBehaviour
 {
-    float moveSpeed = 7.0f;
+    float moveSpeed;
 
     private void Start()
     {
-        Debug.Log("bottle spawned with speed: " + GameManager.instance.GetBottleMoveSpeed());
         moveSpeed = GameManager.instance.GetBottleMoveSpeed();
     }
 
@@ -15,7 +14,7 @@ public class Bottle : MonoBehaviour
     {
         transform.Translate(Vector2.left * Time.deltaTime * moveSpeed);
 
-        if (transform.localPosition.x < -2.79f)
+        if (transform.localPosition.x < -3.940958f)
             Destroy(gameObject);
     }
 

@@ -5,8 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] float bottleMoveSpeed = 3.0f;
     int score = 0;
-    float bottleMoveSpeed = 7.0f;
 
     private void Awake()
     {
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseBottleMoveSpeed()
     {
-        bottleMoveSpeed++;
+        bottleMoveSpeed += 0.25f;
     }
+
 }
