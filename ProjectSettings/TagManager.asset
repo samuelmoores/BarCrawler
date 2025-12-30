@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Bottle
+  - Ground
+  - Keg
   layers:
   - Default
   - TransparentFX

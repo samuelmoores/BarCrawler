@@ -1622,7 +1622,7 @@ GameObject:
   - component: {fileID: 1617358466}
   - component: {fileID: 1617358465}
   - component: {fileID: 1617358464}
-  - component: {fileID: 1617358463}
+  - component: {fileID: 1617358467}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -1650,18 +1650,6 @@ RectTransform:
   m_AnchoredPosition: {x: 512.9, y: -311}
   m_SizeDelta: {x: 148.8196, y: 55.7685}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1617358463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617358461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2b25f2894e1a6147b2fc88ed035987c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameMenu
 --- !u!114 &1617358464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1706,14 +1694,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617358463}
-        m_TargetAssemblyTypeName: GameMenu, Assembly-CSharp
-        m_MethodName: QuitGame
-        m_Mode: 1
+      - m_Target: {fileID: 1617358467}
+        m_TargetAssemblyTypeName: LevelSelect, Assembly-CSharp
+        m_MethodName: LoadLevel
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1756,6 +1744,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617358461}
   m_CullTransparentMesh: 1
+--- !u!114 &1617358467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617358461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e56e6fe32f4dd54ba0fe9bfa92a9063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSelect
 --- !u!1 &1851058809
 GameObject:
   m_ObjectHideFlags: 0
