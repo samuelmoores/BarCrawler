@@ -19,7 +19,7 @@ public class KegSpawner : MonoBehaviour
 
         if(timer <= 0.0f)
         {
-            GameObject keg = Instantiate(kegInstance);
+            GameObject keg = Instantiate(kegInstance, transform.position, Quaternion.identity);
             Destroy(keg, 4.0f);
             keg.GetComponent<Keg>().Launch();
             timer = spawnInterval;

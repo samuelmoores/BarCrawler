@@ -8,6 +8,7 @@ public class PlayerKegRoller : MonoBehaviour
     Animator animator;
     Rigidbody2D rb;
     InputAction jump;
+    InputAction move;
     float timer;
     bool onGround = true;
 
@@ -17,6 +18,7 @@ public class PlayerKegRoller : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         jump = InputSystem.actions.FindAction("Attack");
+        move = InputSystem.actions.FindAction("Move");
     }
 
     // Update is called once per frame
@@ -29,6 +31,11 @@ public class PlayerKegRoller : MonoBehaviour
             animator.SetBool("jump", true);
             onGround = false;
             rb.AddForce(Vector2.up * jumpStrength);
+        }
+
+        if(move.IsPressed())
+        {
+            Debug.Log("move is pressed");
         }
     }
 
