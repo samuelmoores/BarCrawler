@@ -3,13 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerKegRoller : MonoBehaviour
 {
-    [SerializeField] float jumpStrength;
-    [SerializeField] float flattenTimer = 3.0f;
+    [SerializeField] float jumpHeight;
+    [SerializeField] float flattenTime = 3.0f;
+    [SerializeField] float crawlSpeed = 1.0f;
     Animator animator;
     Rigidbody2D rb;
     InputAction jump;
     InputAction move;
-    float timer;
+    float flattenTimer;
     bool onGround = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,38 +18,41 @@ public class PlayerKegRoller : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        jump = InputSystem.actions.FindAction("Attack");
+        jump = new InputAction("Tits", binding: "<Keyboard>/upArrow");
+        jump.Enable();
         move = InputSystem.actions.FindAction("Move");
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
+        flattenTimer -= Time.deltaTime;
 
-        if (jump.WasPressedThisFrame() && CanJump())
+        // Horizontal movement
+        float moveInput = move.ReadValue<Vector2>().x;
+
+        if (!onGround)
+            moveInput /= 3.0f;
+
+        rb.linearVelocity = new Vector2(moveInput * crawlSpeed, rb.linearVelocity.y);
+
+        // Jump
+        if (jump.WasPressedThisFrame() && onGround && flattenTimer < 0.0f)
         {
             animator.SetBool("jump", true);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
             onGround = false;
-            rb.AddForce(Vector2.up * jumpStrength);
         }
 
-        if(move.IsPressed())
-        {
-            Debug.Log("move is pressed");
-        }
-    }
+        if (flattenTimer > 0.0f)
+            rb.linearVelocity = Vector2.down * 10.0f;
 
-    bool CanJump()
-    {
-        return onGround && timer <= 0.0f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("on ground");
             animator.SetBool("jump", false);
             onGround = true;
         }
@@ -56,10 +60,12 @@ public class PlayerKegRoller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("trigger");
+
         if(collision.gameObject.CompareTag("Keg"))
         {
             animator.SetTrigger("flat");
-            timer = flattenTimer;
+            flattenTimer = flattenTime;
         }
     }
 }

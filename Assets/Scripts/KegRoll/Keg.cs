@@ -10,4 +10,5 @@ public class Keg : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce(Vector3.left * launchStength);
     }
+
 }
