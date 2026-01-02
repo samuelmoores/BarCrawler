@@ -12,6 +12,8 @@ public class PlayerKegRoller : MonoBehaviour
     InputAction move;
     float flattenTimer;
     bool onGround = true;
+    int[] tutorialCheck;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +23,7 @@ public class PlayerKegRoller : MonoBehaviour
         jump = new InputAction("Tits", binding: "<Keyboard>/upArrow");
         jump.Enable();
         move = InputSystem.actions.FindAction("Move");
+        tutorialCheck = new int[2];
     }
 
     // Update is called once per frame
@@ -42,11 +45,22 @@ public class PlayerKegRoller : MonoBehaviour
             animator.SetBool("jump", true);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
             onGround = false;
+            tutorialCheck[0]++;
+        }
+
+        if(move.WasPressedThisFrame() && move.ReadValue<Vector2>().x != 0.0f && flattenTimer < 0.0f)
+        {
+            tutorialCheck[1]++;
         }
 
         if (flattenTimer > 0.0f)
             rb.linearVelocity = Vector2.down * 10.0f;
 
+    }
+
+    public int[] RunTutorial()
+    {
+        return tutorialCheck;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
