@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KegRoller.unity
     guid: e9a23e3216595f7469e570123e17a1ec
+  - enabled: 1
+    path: Assets/Scenes/Desert.unity
+    guid: f0c6c13e894eac748beba77f38d66d1a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
