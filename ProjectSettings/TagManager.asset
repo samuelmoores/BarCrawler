@@ -7,6 +7,8 @@ TagManager:
   - Bottle
   - Ground
   - Keg
+  - Brick
+  - Cactus
   layers:
   - Default
   - TransparentFX

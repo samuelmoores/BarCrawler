@@ -4,6 +4,7 @@ public class Waiter : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] bool goingRight = true;
+    [SerializeField] WaiterBottle[] bottle;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,6 +23,8 @@ public class Waiter : MonoBehaviour
             {
                 goingRight = false;
                 transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
+                for(int i = 0; i < bottle.Length; i++)
+                    bottle[i].Restart();
             }
         }
         else
@@ -32,6 +35,8 @@ public class Waiter : MonoBehaviour
             {
                 goingRight = true;
                 transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
+                for (int i = 0; i < bottle.Length; i++)
+                    bottle[i].Restart();
             }
         }
     }
