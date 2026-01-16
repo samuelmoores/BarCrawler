@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DesertCactus.unity
     guid: e25f8d3627f92a648b9389144ec75ae6
+  - enabled: 1
+    path: Assets/Scenes/Vulture.unity
+    guid: b069662e448c8ab4ca3924b5cddabd4d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

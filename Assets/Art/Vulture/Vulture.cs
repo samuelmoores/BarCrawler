@@ -3,15 +3,21 @@ using UnityEngine.Rendering;
 
 public class Vulture : MonoBehaviour
 {
+    [SerializeField] float flySpeed;
     [SerializeField] float startTimer = 3.0f;
     [SerializeField] Transform[] flyPoints;
-    Transform currentFlyPoint;
+    TurdSpawner turdSpawner;
+    float deficationInterval = 2.0f;
+    float deficationTimer = 0.0f;
     int flyPointIndex = 0;
-    float changeFlyPointCooldown = 0.25f;
+    Vector3 flyDirection;
 
     float timer = 0.0f;
     float jumpDuration = 0.5f;
     bool flying = false;
+    bool goingLeft = false;
+    float distance;
+    int frame = 0;
 
     Animator animator;
 
@@ -19,6 +25,7 @@ public class Vulture : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        turdSpawner = GetComponent<TurdSpawner>();
 
     }
 
@@ -26,6 +33,8 @@ public class Vulture : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        deficationTimer += Time.deltaTime;
+        frame++;
 
         if(timer > startTimer && !flying)
         {
@@ -39,19 +48,34 @@ public class Vulture : MonoBehaviour
             if(timer > jumpDuration)
                 animator.SetBool("fly", true);
 
-            float distance = Vector3.Distance(flyPoints[flyPointIndex].position, transform.position);
+            distance = Vector3.Distance(flyPoints[flyPointIndex].position, transform.position);
 
-            Vector3 flyDirection = (flyPoints[flyPointIndex].position - transform.position).normalized;
+            flyDirection = (flyPoints[flyPointIndex].position - transform.position).normalized;
 
-            if (distance < 0.01f)
+            if ( distance <= 0.5f)
             {
                 flyPointIndex = (++flyPointIndex) % flyPoints.Length;
-                if (flyDirection.x == 1.0f || flyDirection.x == -1.0f)
-                    transform.localScale = new Vector3(-transform.localScale.x, 1.0f, 1.0f);
+
+                if (goingLeft)
+                {
+                    transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+                    goingLeft = false;
+                }
+                else
+                {
+                    transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    goingLeft = true;
+                }
+
             }
 
+            if(deficationTimer > deficationInterval)
+            {
+                turdSpawner.SpawnTurn();
+                deficationTimer = 0.0f;
+            }
 
-            transform.Translate(flyDirection * Time.deltaTime);
+            transform.Translate(flyDirection * Time.deltaTime * flySpeed);
         }
 
     }

@@ -8,7 +8,6 @@ public class PlayerDesertCactus : MonoBehaviour
     [SerializeField] GameObject cactusInstance;
     [SerializeField] CircleCollider2D punchBox;
     InputAction punch;
-    bool hitCactus = false;
     GameObject cactus;
     float flatTimer = 4.0f;
     float timer = 0.0f;
@@ -66,7 +65,6 @@ public class PlayerDesertCactus : MonoBehaviour
         if(collision.gameObject.CompareTag("Cactus"))
         {
             cactus = null;
-            hitCactus = false;
         }
 
     }
