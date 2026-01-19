@@ -20,7 +20,7 @@ public class PlayerKegRoller : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        jump = new InputAction("Tits", binding: "<Keyboard>/upArrow");
+        jump = InputSystem.actions.FindAction("Jump");
         jump.Enable();
         move = InputSystem.actions.FindAction("Move");
         tutorialCheck = new int[2];
