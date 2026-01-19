@@ -25,6 +25,8 @@ public class Moon : MonoBehaviour
     float biteTime;
     float biteTimer = 0.0f;
 
+    bool damaged = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,7 +55,6 @@ public class Moon : MonoBehaviour
         //time to stop shacking
         if(shakeTimer > 0.0f)
         {
-            Debug.Log("shake: " + shakeTimer);
             shakeTimer -= Time.deltaTime;
 
             if (shakeTimer <= 0.01f)
@@ -61,10 +62,9 @@ public class Moon : MonoBehaviour
         }
 
         //dash toward player
-        if(attack && distanceFromPlayer > stoppingDistance)
+        if(attack && distanceFromPlayer > stoppingDistance && !damaged)
         {
             moveDirection = (player.transform.position - transform.position).normalized;
-            Debug.Log("desh to player: " + moveDirection);
             transform.Translate(moveDirection * Time.deltaTime * moveSpeed);
             distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
 
@@ -82,10 +82,9 @@ public class Moon : MonoBehaviour
         }
 
         //play bite animation
-        if(biteTimer > 0.0f)
+        if(biteTimer > 0.0f && !damaged)
         {
             biteTimer -= Time.deltaTime;
-
 
             if (biteTimer <= 0.0f)
             {
@@ -95,19 +94,27 @@ public class Moon : MonoBehaviour
         }
 
         //go back to start
-        if(returnToStart)
+        if(returnToStart || damaged)
         {
             moveDirection = (startPosition - transform.position).normalized;
 
             if(Vector3.Distance(startPosition, transform.position) > 0.01f)
             {
-                Debug.Log("moving back to start: " + moveDirection);
                 transform.Translate(moveDirection * Time.deltaTime * moveSpeed);
             }
             else
             {
+                attack = false;
+                bite = false;
                 returnToStart = false;
+                attackReadyTimer = 0.0f;
+                damaged = false;
             }
         }
+    }
+
+    public void TakeDamage()
+    {
+        damaged = true;
     }
 }
